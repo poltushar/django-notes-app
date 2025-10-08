@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   nginx:
     build: ./nginx
@@ -12,9 +11,11 @@ services:
       - django_app
     networks:
       - notes-app-nw
-
   django_app:
-    image: "tusharpol/notes-app:latest"
+    build:
+      context: .
+    image: django_app
+    container_name: "django_cont"
     ports:
       - "8000:8000"
     command: sh -c "python manage.py migrate --noinput && gunicorn notesapp.wsgi --bind 0.0.0.0:8000"
@@ -31,7 +32,6 @@ services:
       start_period: 30s
     networks:
       - notes-app-nw
-
   db:
     image: mysql
     container_name: "db_cont"
@@ -48,6 +48,5 @@ services:
       start_period: 60s
     networks:
       - notes-app-nw
-
 networks:
   notes-app-nw:
