@@ -30,7 +30,7 @@ stage('Code Clone') {
         stage("Test"){
             steps{
                echo "Running tests"
-               echo "Testing successful"
+               echo "Testing successful tushar"
             }
         }
         
